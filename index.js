@@ -18,6 +18,7 @@ async function run() {
   try {
     await client.connect();
     const serviceCollection = client.db('toolsManufacturer').collection('data');
+    const oderCollection = client.db('toolsManufacturer').collection('order');
 
 
     app.get('/data', async (req, res) => {
@@ -28,29 +29,17 @@ async function run() {
     });
 
     app.get('/data/:id', async (req, res) => {
-      const id = req.params.id;
-      const query = {_id:ObjectId(id)};
-      const service = serviceCollection.findOne(query);
-      res.send( service);
+      const id =req.params.id;
+      const query = { _id: ObjectId(id)};
+      const services =await serviceCollection.findOne(query);
+      res.send( services);
     });
 
-    // app.get('/booking', async(req, res) =>{
-    //   const patient = req.query.patient;
-    //   const query = {patient: patient};
-    //   const bookings = await bookingCollection.find(query).toArray();
-    //   res.send(bookings);
-    // })
-
-    // app.post('/booking', async (req, res) => {
-    //   const booking = req.body;
-    //   const query = { treatment: booking.treatment, date: booking.date, patient: booking.patient }
-    //   const exists = await bookingCollection.findOne(query);
-    //   if (exists) {
-    //     return res.send({ success: false, booking: exists })
-    //   }
-    //   const result = await bookingCollection.insertOne(booking);
-    //   return res.send({ success: true, result });
-    // })
+    app.post("/order", async (req, res) => {
+      const newData = req.body;
+      const result = await oderCollection.insertOne(newData);
+      res.send(result);
+    });
 
   }
   finally {
