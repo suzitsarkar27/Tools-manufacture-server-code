@@ -98,7 +98,7 @@ async function run() {
        res.send(users)
      })
      
-     app.put('/user/admin/:email', verifyJWT, async (req, res) => {
+     app.put('/user/admin/:email', async (req, res) => {
       const email = req.params.email;
       const requester = req.decoded.email;
       const requesterAccount = await userCollection.findOne({ email: requester });
@@ -130,6 +130,7 @@ async function run() {
       // res.send({ result, token });
       res.send(result)
     })
+
   }
 
   finally {
