@@ -39,11 +39,11 @@ async function run() {
     });
     
 
-    // app.post("/data", async (req, res) => {
-    //   const newData = req.body;
-    //   const result = await serviceCollection.insertOne(newData);
-    //   res.send(result);
-    // });
+    app.post("/data", async (req, res) => {
+      const product = req.body;
+      const result = await servicecollection.insertOne(product);
+      res.send(result);
+    });
 
 
     app.get('/order', async (req, res) => {
@@ -85,7 +85,7 @@ async function run() {
       const updateDoc={
         $set:user,
       }
-      const result = await usercollection.updateOne(filter,updateDoc,options)
+      const result =await usercollection.updateOne(filter,updateDoc,options)
       // const token = jwt.sign({ email: email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' })
       // res.send({ result, token });
       res.send(result)
