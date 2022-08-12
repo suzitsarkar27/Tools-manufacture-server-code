@@ -46,64 +46,64 @@ async function run() {
     });
 
 
-    app.get('/order', async (req, res) => {
-      const query = {};
-      const cursor =ordercollection.find(query);
-      const result = await cursor.toArray();
-      res.send(result);
-    });
+    // app.get('/order', async (req, res) => {
+    //   const query = {};
+    //   const cursor =ordercollection.find(query);
+    //   const result = await cursor.toArray();
+    //   res.send(result);
+    // });
 
-    app.get('/order', async (req, res) => {
-      const email =req.query.email;
-      const query={email:email}
-      const result =await usercollection.find(query).toArray();
+    // app.get('/order', async (req, res) => {
+    //   const email =req.query.email;
+    //   const query={email:email}
+    //   const result =await usercollection.find(query).toArray();
 
-      res.send(result);
-    });
-
-
-    app.post("/order", async (req, res) => {
-      const newData = req.body;
-      const result = await ordercollection.insertOne(newData);
-      res.send(result);
-    });
+    //   res.send(result);
+    // });
 
 
-    app.delete("/order/:id", async (req, res) => {
-      const id = req.params.id;
-      const query = { _id: ObjectId(id) };
-      const result = await ordercollection.deleteOne(query);
-      res.send(result);
-    });
+    // app.post("/order", async (req, res) => {
+    //   const newData = req.body;
+    //   const result = await ordercollection.insertOne(newData);
+    //   res.send(result);
+    // });
 
-     app.get('/user',async(req,res) =>{
-       const users = await usercollection.find().toArray();
-       res.send(users)
-     })
+
+    // app.delete("/order/:id", async (req, res) => {
+    //   const id = req.params.id;
+    //   const query = { _id: ObjectId(id) };
+    //   const result = await ordercollection.deleteOne(query);
+    //   res.send(result);
+    // });
+
+    //  app.get('/user',async(req,res) =>{
+    //    const users = await usercollection.find().toArray();
+    //    res.send(users)
+    //  })
      
-     app.put('/user/admin/:email',async(req,res)=>{
-        const email =req.params.email;
-        const filter ={ email:email}
-        const updateDoc ={
-          set: {role:'admin'},
-        };
-        const result =await usercollection.updateOne(filter,updateDoc);
-        res.send(result)
-     })
+    //  app.put('/user/admin/:email',async(req,res)=>{
+    //     const email =req.params.email;
+    //     const filter ={ email:email}
+    //     const updateDoc ={
+    //       set: {role:'admin'},
+    //     };
+    //     const result =await usercollection.updateOne(filter,updateDoc);
+    //     res.send(result)
+    //  })
 
 
-    app.put('/user/:email',async(req,res)=>{
-      const email =req.params.email;
-      const user=req.body;
-      const filter={email:email};
-      const options ={upsert:true};
-      const updateDoc={
-        $set:user,
-      }
-      const result =await usercollection.updateOne(filter,updateDoc,options)
-      // const token = jwt.sign({ email: email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' })
-      // res.send({ result, token });
-      res.send(result)
+    // app.put('/user/:email',async(req,res)=>{
+    //   const email =req.params.email;
+    //   const user=req.body;
+    //   const filter={email:email};
+    //   const options ={upsert:true};
+    //   const updateDoc={
+    //     $set:user,
+    //   }
+    //   const result =await usercollection.updateOne(filter,updateDoc,options)
+    //   // const token = jwt.sign({ email: email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' })
+    //   // res.send({ result, token });
+    //   res.send(result)
     })
   }
 
