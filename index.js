@@ -39,34 +39,34 @@ async function run() {
     });
     
 
-    app.post("/data", async (req, res) => {
-      const product = req.body;
-      const result = await servicecollection.insertOne(product);
-      res.send(result);
-    });
+    // app.post("/data", async (req, res) => {
+    //   const product = req.body;
+    //   const result = await servicecollection.insertOne(product);
+    //   res.send(result);
+    // });
 
 
-    app.get('/order', async (req, res) => {
-      const query = {};
-      const cursor =ordercollection.find(query);
-      const result = await cursor.toArray();
-      res.send(result);
-    });
+    // app.get('/order', async (req, res) => {
+    //   const query = {};
+    //   const cursor =ordercollection.find(query);
+    //   const result = await cursor.toArray();
+    //   res.send(result);
+    // });
 
-    app.get('/order', async (req, res) => {
-      const email =req.query.email;
-      const query={email:email}
-      const result =await usercollection.find(query).toArray();
+    // app.get('/order', async (req, res) => {
+    //   const email =req.query.email;
+    //   const query={email:email}
+    //   const result =await usercollection.find(query).toArray();
 
-      res.send(result);
-    });
+    //   res.send(result);
+    // });
 
 
-    app.post("/order", async (req, res) => {
-      const newData = req.body;
-      const result = await ordercollection.insertOne(newData);
-      res.send(result);
-    });
+    // app.post("/order", async (req, res) => {
+    //   const newData = req.body;
+    //   const result = await ordercollection.insertOne(newData);
+    //   res.send(result);
+    // });
 
 
     app.delete("/order/:id", async (req, res) => {
