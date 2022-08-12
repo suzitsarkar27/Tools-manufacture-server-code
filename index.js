@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -20,8 +20,8 @@ async function run() {
   try {
     await client.connect();
     const servicecollection = client.db("Products").collection("data");
-    // const ordercollection = client.db("user").collection("orders");
-    // const usercollection = client.db("user").collection("users");
+    const ordercollection = client.db("user").collection("orders");
+    const usercollection = client.db("user").collection("users");
 
 
     app.get('/data', async (req, res) => {
@@ -39,34 +39,34 @@ async function run() {
     });
     
 
-    // app.post("/data", async (req, res) => {
-    //   const product = req.body;
-    //   const result = await servicecollection.insertOne(product);
-    //   res.send(result);
-    // });
+    app.post("/data", async (req, res) => {
+      const product = req.body;
+      const result = await servicecollection.insertOne(product);
+      res.send(result);
+    });
 
 
-    // app.get('/order', async (req, res) => {
-    //   const query = {};
-    //   const cursor =ordercollection.find(query);
-    //   const result = await cursor.toArray();
-    //   res.send(result);
-    // });
+    app.get('/order', async (req, res) => {
+      const query = {};
+      const cursor =ordercollection.find(query);
+      const result = await cursor.toArray();
+      res.send(result);
+    });
 
-    // app.get('/order', async (req, res) => {
-    //   const email =req.query.email;
-    //   const query={email:email}
-    //   const result =await usercollection.find(query).toArray();
+    app.get('/order', async (req, res) => {
+      const email =req.query.email;
+      const query={email:email}
+      const result =await usercollection.find(query).toArray();
 
-    //   res.send(result);
-    // });
+      res.send(result);
+    });
 
 
-    // app.post("/order", async (req, res) => {
-    //   const newData = req.body;
-    //   const result = await ordercollection.insertOne(newData);
-    //   res.send(result);
-    // });
+    app.post("/order", async (req, res) => {
+      const newData = req.body;
+      const result = await ordercollection.insertOne(newData);
+      res.send(result);
+    });
 
 
     app.delete("/order/:id", async (req, res) => {
@@ -117,7 +117,7 @@ run().catch(console.dir);
 
 
 app.get('/', (req, res) => {
-  res.send('MONGODB CRUD IS RUNNING acd connect')
+  res.send('MONGODB CRUD IS RUNNING TOOLSMANAFACTURE')
 })
 
 app.listen(port, () => {
